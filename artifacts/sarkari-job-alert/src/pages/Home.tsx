@@ -4,7 +4,10 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Building2, BookOpen, Clock, ArrowRight, Download, AlertCircle, Flame } from "lucide-react";
+import {
+  Building2, BookOpen, Clock, ArrowRight, Download, AlertCircle, Flame,
+  RefreshCw, ShieldCheck, Bell, Smartphone, Users, Trophy, CheckCircle2
+} from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
@@ -13,18 +16,59 @@ function isNew(firstSeen: string): boolean {
   return Date.now() - new Date(firstSeen).getTime() < TWO_DAYS_MS;
 }
 
-function Marquee({ children }: { children: React.ReactNode }) {
+function Ticker({ items }: { items: string[] }) {
+  if (items.length === 0) return null;
+  const doubled = [...items, ...items];
   return (
-    <div className="relative flex overflow-x-hidden bg-primary/10 border-y border-primary/20 text-primary py-2.5">
-      <div className="animate-marquee whitespace-nowrap flex items-center gap-8 px-4 text-sm font-medium">
-        {children}
-      </div>
-      <div className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center gap-8 px-4 text-sm font-medium">
-        {children}
+    <div className="overflow-x-hidden bg-primary/10 border-y border-primary/20 text-primary py-2.5">
+      <div className="animate-ticker items-center gap-10 px-4 text-sm font-medium">
+        {doubled.map((label, i) => (
+          <span key={i} className="flex items-center gap-2 mr-10 whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+            {label}
+          </span>
+        ))}
       </div>
     </div>
   );
 }
+
+const STATS = [
+  { icon: RefreshCw,    value: "Every 6 hrs", label: "Auto-refreshed"        },
+  { icon: ShieldCheck,  value: "100% Official", label: "Government links only" },
+  { icon: Clock,        value: "10-day",       label: "Auto-expiry window"    },
+  { icon: Bell,         value: "25+",          label: "Live admit cards"       },
+];
+
+const EXAM_CATEGORIES = [
+  { name: "SSC",       exams: ["CGL", "CHSL", "MTS", "GD Constable"] },
+  { name: "Banking",   exams: ["IBPS PO", "SBI Clerk", "RBI Grade B", "NABARD"] },
+  { name: "Railway",   exams: ["RRB NTPC", "Group D", "ALP", "JE"] },
+  { name: "UPSC",      exams: ["Civil Services", "CDS", "CAPF", "NDA"] },
+  { name: "Defence",   exams: ["Indian Army", "Indian Navy", "Air Force", "Coast Guard"] },
+  { name: "State PSC", exams: ["UPPSC", "BPSC", "MPSC", "RPSC"] },
+];
+
+const HOW_IT_WORKS = [
+  {
+    step: "01",
+    icon: RefreshCw,
+    title: "Auto-Scraped Daily",
+    desc: "Our server automatically fetches the latest admit cards from official government sources every 6 hours — no manual updates needed.",
+  },
+  {
+    step: "02",
+    icon: ShieldCheck,
+    title: "Official Links Only",
+    desc: "We extract direct links from .gov.in and .nic.in sites. You always download straight from the government, with no third-party redirects.",
+  },
+  {
+    step: "03",
+    icon: Bell,
+    title: "Instant App Alerts",
+    desc: "Get notified the moment a new admit card is available through the Sarkari Job Alerts Android app — before it disappears.",
+  },
+];
 
 export default function Home() {
   const { data: admitCardsData, isLoading: isLoadingAdmitCards, error: admitCardsError } = useGetAdmitCards();
@@ -35,25 +79,18 @@ export default function Home() {
   const featuredAdmitCards = admitCards.slice(0, 6);
   const featuredMockTests = mockTests.slice(0, 6);
 
+  const tickerItems = isLoadingAdmitCards
+    ? ["Fetching latest updates..."]
+    : admitCards.slice(0, 8).map((ac) => ac.title);
+
   return (
     <Layout>
       {(admitCards.length > 0 || isLoadingAdmitCards) && (
-        <Marquee>
-          {isLoadingAdmitCards ? (
-            <span>Fetching latest updates...</span>
-          ) : (
-            admitCards.slice(0, 6).map((ac) => (
-              <span key={`marquee-${ac.id}`} className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                {ac.title}
-              </span>
-            ))
-          )}
-        </Marquee>
+        <Ticker items={tickerItems} />
       )}
 
       <section className="relative py-20 lg:py-28 overflow-hidden bg-secondary text-secondary-foreground">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay" />
         <div className="container relative mx-auto px-4 flex flex-col items-center text-center">
           <Badge variant="outline" className="mb-6 bg-white/10 text-white border-white/20 hover:bg-white/20 font-medium py-1.5 px-4 text-sm">
             India's Trusted Government Job Portal
@@ -62,7 +99,7 @@ export default function Home() {
             Your Gateway to <span className="text-primary">Government Exams</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-secondary-foreground/80 max-w-2xl font-light">
-            Get direct official admit card download links and free mock tests — updated daily, no clutter.
+            Direct official admit card links and free mock tests — auto-updated every 6 hours, zero clutter.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Button asChild size="lg" className="h-12 px-8 text-base shadow-lg hover:shadow-primary/25 hover:-translate-y-1 transition-all">
@@ -71,6 +108,22 @@ export default function Home() {
             <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white transition-all">
               <Link href="/mock-tests" data-testid="link-hero-mock-tests">Practice Mock Tests</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white border-b">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border">
+            {STATS.map(({ icon: Icon, value, label }) => (
+              <div key={label} className="flex flex-col items-center text-center py-6 px-4 gap-2">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-1">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <span className="text-xl font-bold font-display text-secondary">{value}</span>
+                <span className="text-xs text-muted-foreground">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -217,6 +270,52 @@ export default function Home() {
       </section>
 
       <section className="py-14 md:py-20 container mx-auto px-4">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-display font-bold text-secondary">How It Works</h2>
+          <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Behind the scenes, we do the heavy lifting so you don't miss a single admit card.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {HOW_IT_WORKS.map(({ step, icon: Icon, title, desc }) => (
+            <div key={step} className="relative flex flex-col p-6 rounded-2xl border bg-white hover:shadow-md transition-all">
+              <span className="text-5xl font-display font-bold text-primary/10 absolute top-4 right-5 select-none">{step}</span>
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <Icon className="w-6 h-6" />
+              </div>
+              <h3 className="font-semibold text-lg text-secondary mb-2">{title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 bg-slate-50 border-t">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-display font-bold text-secondary">Exams We Cover</h2>
+            <p className="text-muted-foreground mt-2">Admit cards and mock tests for all major government exam categories</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {EXAM_CATEGORIES.map(({ name, exams }) => (
+              <div key={name} className="bg-white rounded-xl border p-5 hover:border-primary/30 hover:shadow-sm transition-all">
+                <div className="flex items-center gap-2 mb-3">
+                  <Trophy className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-secondary text-sm">{name}</span>
+                </div>
+                <ul className="space-y-1.5">
+                  {exams.map((exam) => (
+                    <li key={exam} className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary/60 shrink-0" />
+                      {exam}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 container mx-auto px-4">
         <div className="bg-primary/5 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-primary/10">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-secondary mb-4">Why Sarkari Job Alert?</h2>
           <p className="text-muted-foreground mb-10 text-base">We cut through the noise so you can focus on what matters — preparing.</p>
@@ -226,22 +325,38 @@ export default function Home() {
                 <Clock className="w-6 h-6" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Always Fresh</h3>
-              <p className="text-sm text-muted-foreground">Admit cards auto-expire after 10 days so you only see current, relevant listings.</p>
+              <p className="text-sm text-muted-foreground">Admit cards auto-expire after 10 days so you only ever see current, relevant listings.</p>
             </div>
             <div>
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-4">
                 <Download className="w-6 h-6" />
               </div>
               <h3 className="font-semibold text-lg mb-2">Official Links</h3>
-              <p className="text-sm text-muted-foreground">Every download button takes you directly to the official government website — no middlemen.</p>
+              <p className="text-sm text-muted-foreground">Every download button links directly to the official government website — no middlemen or redirects.</p>
             </div>
             <div>
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-4">
-                <BookOpen className="w-6 h-6" />
+                <Smartphone className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Free Practice</h3>
-              <p className="text-sm text-muted-foreground">Access free mock tests for SSC, Banking, Railway, UPSC, Defence, and Insurance exams.</p>
+              <h3 className="font-semibold text-lg mb-2">Mobile App</h3>
+              <p className="text-sm text-muted-foreground">Get instant push notifications the moment a new admit card is out — download the free Android app today.</p>
             </div>
+          </div>
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.sarkarialert"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-secondary text-white px-6 py-3 rounded-xl hover:bg-secondary/90 transition-colors font-medium text-sm"
+            >
+              <Users className="w-4 h-4" />
+              Download App on Google Play
+            </a>
+            <Link href="/admit-cards">
+              <Button variant="outline" className="gap-2 border-primary/30 text-primary hover:bg-primary/5">
+                Browse Admit Cards <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
