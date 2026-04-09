@@ -66,8 +66,8 @@ export default function MockTests() {
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Sidebar / Filters */}
           <aside className="w-full lg:w-64 shrink-0 lg:sticky lg:top-24 space-y-6">
-            <div className="bg-slate-50 border rounded-xl p-5 shadow-sm">
-              <h3 className="font-semibold text-secondary mb-4 flex items-center gap-2">
+            <div className="bg-card border rounded-xl p-5 shadow-sm">
+              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-primary" />
                 Categories
               </h3>
@@ -122,7 +122,7 @@ export default function MockTests() {
           {/* Main Content */}
           <main className="flex-1 w-full">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="font-semibold text-lg text-secondary">
+              <h2 className="font-semibold text-lg text-foreground">
                 {isLoading ? "Loading tests..." : `${filteredTests.length} Tests Available`}
               </h2>
             </div>
@@ -178,7 +178,7 @@ export default function MockTests() {
               ) : !error ? (
                 <div className="col-span-full py-16 text-center bg-muted/30 rounded-xl border border-dashed">
                   <BookOpen className="w-16 h-16 mx-auto text-muted-foreground/40 mb-4" />
-                  <h3 className="text-xl font-medium text-secondary">No tests found in this category</h3>
+                  <h3 className="text-xl font-medium text-foreground">No tests found in this category</h3>
                   <p className="text-muted-foreground mt-2 max-w-md mx-auto mb-6">
                     Try selecting a different category to view available mock tests.
                   </p>

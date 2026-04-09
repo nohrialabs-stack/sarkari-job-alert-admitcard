@@ -86,19 +86,19 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
           <Link href="/admit-cards" data-testid="link-block-admit-cards">
-            <div className="group relative flex flex-col items-center justify-center text-center gap-5 p-10 md:p-14 rounded-3xl border-2 border-primary/20 bg-white hover:border-primary hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all cursor-pointer h-full min-h-64">
+            <div className="group relative flex flex-col items-center justify-center text-center gap-5 p-10 md:p-14 rounded-3xl border-2 border-primary/20 bg-card hover:border-primary hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all cursor-pointer h-full min-h-64">
               <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all">
                 <Download className="w-10 h-10 text-primary group-hover:text-white transition-colors" />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-secondary group-hover:text-primary transition-colors">
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground group-hover:text-primary transition-colors">
                   Admit Cards
                 </h2>
                 <p className="mt-2 text-muted-foreground text-sm">
                   Direct official government links
                 </p>
                 {newCount > 0 && (
-                  <span className="mt-3 inline-flex items-center gap-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="mt-3 inline-flex items-center gap-1.5 bg-red-500/10 text-red-500 border border-red-500/20 text-xs font-semibold px-3 py-1 rounded-full">
                     🔥 {newCount} new today
                   </span>
                 )}
@@ -110,22 +110,22 @@ export default function Home() {
           </Link>
 
           <Link href="/mock-tests" data-testid="link-block-mock-tests">
-            <div className="group relative flex flex-col items-center justify-center text-center gap-5 p-10 md:p-14 rounded-3xl border-2 border-secondary/20 bg-white hover:border-secondary hover:shadow-xl hover:shadow-secondary/10 hover:-translate-y-1 transition-all cursor-pointer h-full min-h-64">
-              <div className="w-20 h-20 rounded-2xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary group-hover:scale-110 transition-all">
-                <BookOpen className="w-10 h-10 text-secondary group-hover:text-white transition-colors" />
+            <div className="group relative flex flex-col items-center justify-center text-center gap-5 p-10 md:p-14 rounded-3xl border-2 border-border bg-card hover:border-primary hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all cursor-pointer h-full min-h-64">
+              <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all">
+                <BookOpen className="w-10 h-10 text-primary group-hover:text-white transition-colors" />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-secondary group-hover:text-primary transition-colors">
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground group-hover:text-primary transition-colors">
                   Mock Tests
                 </h2>
                 <p className="mt-2 text-muted-foreground text-sm">
                   Free practice for all major exams
                 </p>
-                <span className="mt-3 inline-flex items-center gap-1.5 bg-green-50 text-green-700 border border-green-200 text-xs font-semibold px-3 py-1 rounded-full">
+                <span className="mt-3 inline-flex items-center gap-1.5 bg-green-500/10 text-green-500 border border-green-500/20 text-xs font-semibold px-3 py-1 rounded-full">
                   ✓ 100% Free
                 </span>
               </div>
-              <div className="flex items-center gap-1 text-secondary text-sm font-semibold">
+              <div className="flex items-center gap-1 text-primary text-sm font-semibold">
                 View All <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>

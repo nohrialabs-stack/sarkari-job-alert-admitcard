@@ -54,7 +54,7 @@ export default function AdmitCards() {
               <Input
                 type="search"
                 placeholder="Search by exam or organization..."
-                className="pl-10 h-12 bg-white text-black border-transparent focus-visible:ring-primary shadow-sm text-base rounded-xl"
+                className="pl-10 h-12 bg-background text-foreground border-transparent focus-visible:ring-primary shadow-sm text-base rounded-xl"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 data-testid="input-search-admit-cards"
@@ -95,7 +95,7 @@ export default function AdmitCards() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {isLoading ? (
             Array.from({ length: 9 }).map((_, i) => (
-              <div key={`sk-${i}`} className="rounded-2xl border bg-white p-5 space-y-4 shadow-sm">
+              <div key={`sk-${i}`} className="rounded-2xl border bg-card p-5 space-y-4 shadow-sm">
                 <div className="flex items-center gap-2">
                   <Skeleton className="h-4 w-16" />
                   <Skeleton className="h-4 w-12" />
@@ -110,7 +110,7 @@ export default function AdmitCards() {
             filteredCards.map((card) => (
               <div
                 key={card.id}
-                className="flex flex-col rounded-2xl border bg-white shadow-sm hover:shadow-md hover:border-primary/30 transition-all group"
+                className="flex flex-col rounded-2xl border bg-card shadow-sm hover:shadow-md hover:border-primary/30 transition-all group"
               >
                 {/* Card Top */}
                 <div className="p-5 flex-1">
@@ -126,7 +126,7 @@ export default function AdmitCards() {
                     )}
                   </div>
 
-                  <h3 className="font-bold text-secondary text-base leading-snug group-hover:text-primary transition-colors mb-3">
+                  <h3 className="font-bold text-foreground text-base leading-snug group-hover:text-primary transition-colors mb-3">
                     {card.title}
                   </h3>
 
@@ -170,7 +170,7 @@ export default function AdmitCards() {
           ) : !error ? (
             <div className="col-span-full py-16 text-center bg-muted/30 rounded-xl border border-dashed flex flex-col items-center">
               <Search className="w-12 h-12 text-muted-foreground/40 mb-4" />
-              <h3 className="text-xl font-medium text-secondary">No results found</h3>
+              <h3 className="text-xl font-medium text-foreground">No results found</h3>
               <p className="text-muted-foreground mt-2 mb-6 max-w-md text-sm">
                 Try different keywords or clear the search.
               </p>
