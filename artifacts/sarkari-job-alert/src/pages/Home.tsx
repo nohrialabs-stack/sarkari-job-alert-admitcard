@@ -58,7 +58,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-center">
             <div className="flex items-center gap-2">
               <Bell className="w-4 h-4 text-primary shrink-0" />
-              <span className="font-medium text-secondary">Get the <span className="text-primary font-bold">fastest notifications</span> on new admit cards — download our app!</span>
+              <span className="font-medium text-foreground">Get the <span className="text-primary font-bold">fastest notifications</span> on new admit cards — download our app!</span>
             </div>
             <div className="flex items-center gap-3 shrink-0">
               <a
