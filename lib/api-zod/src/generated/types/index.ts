@@ -6,4 +6,8 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./admitCard";
+export * from "./admitCardList";
 export * from "./healthStatus";
+export * from "./mockTest";
+export * from "./mockTestList";

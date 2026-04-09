@@ -14,3 +14,40 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Returns a list of admit card listings scraped from FreeJobAlert
+ * @summary List admit cards
+ */
+export const GetAdmitCardsResponse = zod.object({
+  items: zod.array(
+    zod.object({
+      id: zod.string(),
+      title: zod.string(),
+      organization: zod.string(),
+      postName: zod.string(),
+      releaseDate: zod.string(),
+      examDate: zod.string().optional(),
+      link: zod.string(),
+    }),
+  ),
+  lastUpdated: zod.string(),
+});
+
+/**
+ * Returns a list of mock test listings scraped from FreeJobAlert
+ * @summary List mock tests
+ */
+export const GetMockTestsResponse = zod.object({
+  items: zod.array(
+    zod.object({
+      id: zod.string(),
+      title: zod.string(),
+      category: zod.string(),
+      description: zod.string().optional(),
+      link: zod.string(),
+      questionCount: zod.string().optional(),
+    }),
+  ),
+  lastUpdated: zod.string(),
+});

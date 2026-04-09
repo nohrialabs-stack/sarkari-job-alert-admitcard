@@ -13,7 +13,7 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type { AdmitCardList, HealthStatus, MockTestList } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
 import type { ErrorType } from "../custom-fetch";
@@ -92,6 +92,158 @@ export function useHealthCheck<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getHealthCheckQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns a list of admit card listings scraped from FreeJobAlert
+ * @summary List admit cards
+ */
+export const getGetAdmitCardsUrl = () => {
+  return `/api/admit-cards`;
+};
+
+export const getAdmitCards = async (
+  options?: RequestInit,
+): Promise<AdmitCardList> => {
+  return customFetch<AdmitCardList>(getGetAdmitCardsUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAdmitCardsQueryKey = () => {
+  return [`/api/admit-cards`] as const;
+};
+
+export const getGetAdmitCardsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAdmitCards>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAdmitCards>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAdmitCardsQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAdmitCards>>> = ({
+    signal,
+  }) => getAdmitCards({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAdmitCards>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAdmitCardsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAdmitCards>>
+>;
+export type GetAdmitCardsQueryError = ErrorType<unknown>;
+
+/**
+ * @summary List admit cards
+ */
+
+export function useGetAdmitCards<
+  TData = Awaited<ReturnType<typeof getAdmitCards>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAdmitCards>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAdmitCardsQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns a list of mock test listings scraped from FreeJobAlert
+ * @summary List mock tests
+ */
+export const getGetMockTestsUrl = () => {
+  return `/api/mock-tests`;
+};
+
+export const getMockTests = async (
+  options?: RequestInit,
+): Promise<MockTestList> => {
+  return customFetch<MockTestList>(getGetMockTestsUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetMockTestsQueryKey = () => {
+  return [`/api/mock-tests`] as const;
+};
+
+export const getGetMockTestsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMockTests>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMockTests>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetMockTestsQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getMockTests>>> = ({
+    signal,
+  }) => getMockTests({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getMockTests>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetMockTestsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMockTests>>
+>;
+export type GetMockTestsQueryError = ErrorType<unknown>;
+
+/**
+ * @summary List mock tests
+ */
+
+export function useGetMockTests<
+  TData = Awaited<ReturnType<typeof getMockTests>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMockTests>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetMockTestsQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

@@ -10,6 +10,10 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: admit-cards
+    description: Admit card listings
+  - name: mock-tests
+    description: Mock test listings
 paths:
   /healthz:
     get:
@@ -24,6 +28,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /admit-cards:
+    get:
+      operationId: getAdmitCards
+      tags: [admit-cards]
+      summary: List admit cards
+      description: Returns a list of admit card listings scraped from FreeJobAlert
+      responses:
+        "200":
+          description: List of admit cards
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdmitCardList"
+
+  /mock-tests:
+    get:
+      operationId: getMockTests
+      tags: [mock-tests]
+      summary: List mock tests
+      description: Returns a list of mock test listings scraped from FreeJobAlert
+      responses:
+        "200":
+          description: List of mock tests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MockTestList"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +67,74 @@ components:
       required:
         - status
 
+    AdmitCard:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        organization:
+          type: string
+        postName:
+          type: string
+        releaseDate:
+          type: string
+        examDate:
+          type: string
+        link:
+          type: string
+      required:
+        - id
+        - title
+        - organization
+        - postName
+        - releaseDate
+        - link
+
+    AdmitCardList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AdmitCard"
+        lastUpdated:
+          type: string
+      required:
+        - items
+        - lastUpdated
+
+    MockTest:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        questionCount:
+          type: string
+      required:
+        - id
+        - title
+        - category
+        - link
+
+    MockTestList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/MockTest"
+        lastUpdated:
+          type: string
+      required:
+        - items
+        - lastUpdated

@@ -8,3 +8,32 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface AdmitCard {
+  id: string;
+  title: string;
+  organization: string;
+  postName: string;
+  releaseDate: string;
+  examDate?: string;
+  link: string;
+}
+
+export interface AdmitCardList {
+  items: AdmitCard[];
+  lastUpdated: string;
+}
+
+export interface MockTest {
+  id: string;
+  title: string;
+  category: string;
+  description?: string;
+  link: string;
+  questionCount?: string;
+}
+
+export interface MockTestList {
+  items: MockTest[];
+  lastUpdated: string;
+}
