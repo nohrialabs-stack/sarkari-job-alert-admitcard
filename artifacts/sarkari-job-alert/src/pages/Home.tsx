@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Building2, BookOpen, Clock, ArrowRight, Download, AlertCircle, Flame,
-  RefreshCw, ShieldCheck, Bell, Smartphone, Users, Trophy, CheckCircle2
+  RefreshCw, ShieldCheck, Bell, Smartphone, Users, Trophy, CheckCircle2,
+  AlertTriangle
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -127,6 +128,22 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="bg-orange-50 border-b border-orange-100">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-orange-700 text-center sm:text-left">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
+              <strong>Disclaimer:</strong>
+            </div>
+            <span>
+              Sarkari Job Alert is <strong>not affiliated with any government body</strong>. This is an independent, privately owned platform operated by <strong>NOHRIA LABS</strong>.
+              Always verify details from official government websites.{" "}
+              <Link href="/terms" className="underline hover:text-orange-900 transition-colors font-medium">Terms &amp; Conditions ↗</Link>
+            </span>
+          </div>
+        </div>
+      </div>
 
       <section className="py-14 md:py-20 container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">

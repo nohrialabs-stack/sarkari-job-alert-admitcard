@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { AlertTriangle } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,7 +19,7 @@ export function Footer() {
               <div>
                 <h3 className="font-display font-bold text-white text-xl">Get the App</h3>
                 <p className="text-secondary-foreground/70 text-sm mt-0.5 max-w-xs">
-                  Download <strong className="text-white">Sarkari Job Alerts</strong> for instant notifications on new admit cards, results & job openings — before anyone else.
+                  Download <strong className="text-white">Sarkari Job Alerts</strong> for instant notifications on new admit cards, results &amp; job openings — before anyone else.
                 </p>
               </div>
             </div>
@@ -55,6 +56,10 @@ export function Footer() {
             <p className="text-secondary-foreground/70 max-w-sm text-sm leading-relaxed">
               India's trusted companion for government job aspirants. We organize admit cards, exam dates, and mock tests so you can focus on preparation.
             </p>
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-secondary-foreground/60">
+              <AlertTriangle className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+              <span>Not affiliated with any government body. Owned by <strong className="text-secondary-foreground/80">NOHRIA LABS</strong>.</span>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -84,16 +89,27 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-semibold text-white">Information</h4>
-            <p className="text-sm text-secondary-foreground/70">
-              Data aggregated for educational purposes. Always verify details from official organization websites before applying or downloading.
-            </p>
+            <h4 className="font-semibold text-white">Legal</h4>
+            <ul className="space-y-2 text-sm text-secondary-foreground/70">
+              <li>
+                <Link href="/terms" className="hover:text-primary transition-colors" data-testid="footer-link-terms">Terms &amp; Conditions</Link>
+              </li>
+            </ul>
+            <div className="pt-2">
+              <p className="text-xs text-secondary-foreground/50 leading-relaxed">
+                Always verify information from official government websites before making any decisions.
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="mt-12 pt-6 border-t border-secondary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-secondary-foreground/50">
-          <p data-testid="text-copyright">© {currentYear} Sarkari Job Alert. All rights reserved.</p>
-          <p data-testid="text-disclaimer">Disclaimer: Data compiled from official government sources. Verify before use.</p>
+          <p data-testid="text-copyright">
+            © {currentYear} <strong className="text-secondary-foreground/70">NOHRIA LABS</strong>. All rights reserved. · Sarkari Job Alert
+          </p>
+          <p data-testid="text-disclaimer" className="text-center md:text-right max-w-sm">
+            Independent platform. Not affiliated with the Government of India or any state government. <Link href="/terms" className="underline hover:text-primary transition-colors">Terms &amp; Conditions</Link>
+          </p>
         </div>
       </div>
     </footer>
