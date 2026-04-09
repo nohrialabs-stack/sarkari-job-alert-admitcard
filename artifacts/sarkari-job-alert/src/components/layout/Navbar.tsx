@@ -1,7 +1,6 @@
 import { Link, useLocation } from "wouter";
-import { Search, Bell, BookOpen, Menu, X, FileText } from "lucide-react";
+import { BookOpen, Menu, X, FileText, Bell } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   const [location] = useLocation();
@@ -18,16 +17,17 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group" data-testid="link-home-logo">
-          <div className="bg-primary text-primary-foreground p-2 rounded-lg shadow-sm group-hover:bg-primary/90 transition-colors">
-            <Bell className="h-5 w-5" />
-          </div>
+        <Link href="/" className="flex items-center gap-2.5 group" data-testid="link-home-logo">
+          <img
+            src="/app-icon.png"
+            alt="Sarkari Job Alerts"
+            className="h-9 w-9 rounded-xl shadow-sm group-hover:opacity-90 transition-opacity"
+          />
           <span className="font-display font-bold text-xl tracking-tight text-secondary">
             Sarkari Job<span className="text-primary"> Alert</span>
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
@@ -44,7 +44,18 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile Nav Toggle */}
+        <a
+          href="https://play.google.com/store/apps/details?id=com.sarkarialert"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-2 bg-secondary text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-secondary/90 transition-colors"
+        >
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3.18 23.76c.3.17.64.24.99.24.5 0 .99-.15 1.4-.43l11.61-6.71-3.11-3.11-10.89 10zM.44 1.38C.17 1.79 0 2.31 0 2.9v18.2c0 .59.17 1.11.44 1.52l.08.08 10.2-10.2v-.24L.52 1.3l-.08.08zM19.37 8.31l-2.87-1.66-3.42 3.42 3.42 3.42 2.88-1.66c.82-.47.82-1.24-.01-1.72v.2zM4.17.43L15.78 7.14l-3.11 3.11L1.58.14C1.99-.14 2.69-.05 4.17.43z"/>
+          </svg>
+          Get App
+        </a>
+
         <button
           className="md:hidden p-2 text-muted-foreground hover:bg-muted rounded-md"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -54,7 +65,6 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Nav */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t bg-white">
           <nav className="flex flex-col container mx-auto px-4 py-4 space-y-2">
@@ -74,6 +84,18 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href="https://play.google.com/store/apps/details?id=com.sarkarialert"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-3 rounded-md text-sm font-semibold bg-secondary text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.18 23.76c.3.17.64.24.99.24.5 0 .99-.15 1.4-.43l11.61-6.71-3.11-3.11-10.89 10zM.44 1.38C.17 1.79 0 2.31 0 2.9v18.2c0 .59.17 1.11.44 1.52l.08.08 10.2-10.2v-.24L.52 1.3l-.08.08zM19.37 8.31l-2.87-1.66-3.42 3.42 3.42 3.42 2.88-1.66c.82-.47.82-1.24-.01-1.72v.2zM4.17.43L15.78 7.14l-3.11 3.11L1.58.14C1.99-.14 2.69-.05 4.17.43z"/>
+              </svg>
+              Download App on Play Store
+            </a>
           </nav>
         </div>
       )}
