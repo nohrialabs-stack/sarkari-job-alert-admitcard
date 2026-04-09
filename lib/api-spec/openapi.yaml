@@ -135,6 +135,11 @@ components:
             $ref: "#/components/schemas/MockTest"
         lastUpdated:
           type: string
+        source:
+          type: string
+          enum: [scraped, fallback]
+          description: Whether data was scraped live or served from curated fallback
       required:
         - items
         - lastUpdated
+        - source

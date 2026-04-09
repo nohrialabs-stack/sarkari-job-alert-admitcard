@@ -144,11 +144,11 @@ const FALLBACK_MOCK_TESTS: MockTest[] = [
   },
 ];
 
-let cache: { items: MockTest[]; lastUpdated: string } | null = null;
+let cache: { items: MockTest[]; lastUpdated: string; source: "scraped" | "fallback" } | null = null;
 let cacheTime = 0;
 const CACHE_TTL = 30 * 60 * 1000;
 
-async function scrapeMockTests(): Promise<MockTest[]> {
+async function scrapeMockTests(): Promise<{ items: MockTest[]; source: "scraped" | "fallback" }> {
   try {
     const url = "https://slate.freejobalert.com/mock-test/";
     const response = await axios.get(url, {
@@ -199,13 +199,13 @@ async function scrapeMockTests(): Promise<MockTest[]> {
     });
 
     if (items.length > 5) {
-      return items.slice(0, 50);
+      return { items: items.slice(0, 50), source: "scraped" };
     }
   } catch (_err) {
     // Fall through to fallback data
   }
 
-  return FALLBACK_MOCK_TESTS;
+  return { items: FALLBACK_MOCK_TESTS, source: "fallback" };
 }
 
 router.get("/mock-tests", async (req, res) => {
@@ -216,10 +216,11 @@ router.get("/mock-tests", async (req, res) => {
       return;
     }
 
-    const items = await scrapeMockTests();
+    const { items, source } = await scrapeMockTests();
     const result = {
       items,
       lastUpdated: new Date().toISOString(),
+      source,
     };
     cache = result;
     cacheTime = now;

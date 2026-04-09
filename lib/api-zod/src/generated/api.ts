@@ -50,4 +50,7 @@ export const GetMockTestsResponse = zod.object({
     }),
   ),
   lastUpdated: zod.string(),
+  source: zod
+    .enum(["scraped", "fallback"])
+    .describe("Whether data was scraped live or served from curated fallback"),
 });

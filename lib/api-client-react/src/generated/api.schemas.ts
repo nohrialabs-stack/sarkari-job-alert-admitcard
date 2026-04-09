@@ -33,7 +33,20 @@ export interface MockTest {
   questionCount?: string;
 }
 
+/**
+ * Whether data was scraped live or served from curated fallback
+ */
+export type MockTestListSource =
+  (typeof MockTestListSource)[keyof typeof MockTestListSource];
+
+export const MockTestListSource = {
+  scraped: "scraped",
+  fallback: "fallback",
+} as const;
+
 export interface MockTestList {
   items: MockTest[];
   lastUpdated: string;
+  /** Whether data was scraped live or served from curated fallback */
+  source: MockTestListSource;
 }

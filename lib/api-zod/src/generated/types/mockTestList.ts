@@ -6,8 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { MockTest } from "./mockTest";
+import type { MockTestListSource } from "./mockTestListSource";
 
 export interface MockTestList {
   items: MockTest[];
   lastUpdated: string;
+  /** Whether data was scraped live or served from curated fallback */
+  source: MockTestListSource;
 }
