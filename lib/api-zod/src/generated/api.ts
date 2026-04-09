@@ -25,10 +25,10 @@ export const GetAdmitCardsResponse = zod.object({
       id: zod.string(),
       title: zod.string(),
       organization: zod.string(),
-      postName: zod.string(),
-      releaseDate: zod.string(),
-      examDate: zod.string().optional(),
-      link: zod.string(),
+      link: zod.string().describe("Official government website download link"),
+      firstSeen: zod
+        .string()
+        .describe("ISO timestamp of when this admit card was first indexed"),
     }),
   ),
   lastUpdated: zod.string(),

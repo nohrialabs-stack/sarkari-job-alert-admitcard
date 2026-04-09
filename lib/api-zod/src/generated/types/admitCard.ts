@@ -10,8 +10,8 @@ export interface AdmitCard {
   id: string;
   title: string;
   organization: string;
-  postName: string;
-  releaseDate: string;
-  examDate?: string;
+  /** Official government website download link */
   link: string;
+  /** ISO timestamp of when this admit card was first indexed */
+  firstSeen: string;
 }

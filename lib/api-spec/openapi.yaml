@@ -76,21 +76,18 @@ components:
           type: string
         organization:
           type: string
-        postName:
-          type: string
-        releaseDate:
-          type: string
-        examDate:
-          type: string
         link:
           type: string
+          description: Official government website download link
+        firstSeen:
+          type: string
+          description: ISO timestamp of when this admit card was first indexed
       required:
         - id
         - title
         - organization
-        - postName
-        - releaseDate
         - link
+        - firstSeen
 
     AdmitCardList:
       type: object
