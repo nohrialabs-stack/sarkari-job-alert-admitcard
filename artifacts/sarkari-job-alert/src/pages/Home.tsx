@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Building2, BookOpen, Clock, ArrowRight, Download, AlertCircle, Flame,
-  RefreshCw, ShieldCheck, Bell, Smartphone, Users, Trophy, CheckCircle2,
-  AlertTriangle
+  RefreshCw, ShieldCheck, Bell, Smartphone, Users, Trophy, CheckCircle2
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -129,18 +128,31 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="bg-orange-50 border-b border-orange-100">
+      <div className="bg-primary/5 border-b border-primary/10">
         <div className="container mx-auto px-4 py-3">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-orange-700 text-center sm:text-left">
-            <div className="flex items-center gap-1.5 shrink-0">
-              <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
-              <strong>Disclaimer:</strong>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-center">
+            <div className="flex items-center gap-2">
+              <Bell className="w-4 h-4 text-primary shrink-0" />
+              <span className="font-medium text-secondary">Get the <span className="text-primary font-bold">fastest notifications</span> on new admit cards — download our app!</span>
             </div>
-            <span>
-              Sarkari Job Alert is <strong>not affiliated with any government body</strong>. This is an independent, privately owned platform operated by <strong>NOHRIA LABS</strong>.
-              Always verify details from official government websites.{" "}
-              <Link href="/terms" className="underline hover:text-orange-900 transition-colors font-medium">Terms &amp; Conditions ↗</Link>
-            </span>
+            <div className="flex items-center gap-3 shrink-0">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.sarkarialert"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-4 py-1.5 rounded-full hover:bg-primary/90 transition-colors"
+              >
+                <Smartphone className="w-3.5 h-3.5" /> Download Free
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.sarkarialert&reviewId=0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-medium text-yellow-600 hover:text-yellow-700 transition-colors"
+              >
+                ⭐⭐⭐⭐⭐ Rate us 5 stars
+              </a>
+            </div>
           </div>
         </div>
       </div>
