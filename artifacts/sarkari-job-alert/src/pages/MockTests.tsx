@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { useGetMockTests } from "@workspace/api-client-react";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { BookOpen, ExternalLink, AlertCircle, Clock, CheckCircle2, ChevronRight } from "lucide-react";
+import { BookOpen, AlertCircle, Clock, CheckCircle2, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -168,11 +168,10 @@ export default function MockTests() {
                       )}
                     </CardContent>
                     <CardFooter className="pt-0">
-                      <Button asChild className="w-full gap-2" variant="outline">
-                        <a href={test.link} target="_blank" rel="noopener noreferrer" data-testid={`btn-start-test-${test.id}`}>
-                          Start Practice Test <ExternalLink className="w-4 h-4" />
-                        </a>
-                      </Button>
+                      <div className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-muted text-muted-foreground text-sm font-medium cursor-not-allowed select-none border border-dashed border-muted-foreground/30">
+                        <Clock className="w-4 h-4" />
+                        Coming Soon
+                      </div>
                     </CardFooter>
                   </Card>
                 ))

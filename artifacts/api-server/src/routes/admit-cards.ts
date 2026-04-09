@@ -91,7 +91,7 @@ async function fetchOfficialLink(articleUrl: string): Promise<string | null> {
 
 let cache: { items: AdmitCard[]; lastUpdated: string } | null = null;
 let cacheTime = 0;
-const CACHE_TTL = 30 * 60 * 1000;
+const CACHE_TTL = 6 * 60 * 60 * 1000;
 
 async function scrapeAdmitCards(): Promise<AdmitCard[]> {
   const listingUrl = "https://www.freejobalert.com/admit-card/";

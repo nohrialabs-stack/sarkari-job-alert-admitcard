@@ -201,15 +201,10 @@ export default function Home() {
                       {test.questionCount} Questions
                     </p>
                   )}
-                  <a
-                    href={test.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-testid={`btn-start-test-${test.id}`}
-                    className="inline-flex items-center justify-center gap-2 bg-secondary text-white text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-secondary/90 transition-colors"
-                  >
-                    Start Test <ArrowRight className="w-4 h-4" />
-                  </a>
+                  <div className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-muted text-muted-foreground text-sm font-medium cursor-not-allowed select-none border border-dashed border-muted-foreground/30">
+                    <Clock className="w-4 h-4" />
+                    Coming Soon
+                  </div>
                 </div>
               ))
             ) : !mockTestsError ? (
