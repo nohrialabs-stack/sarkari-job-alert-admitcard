@@ -184,6 +184,18 @@ async function scrapeAdmitCards(): Promise<AdmitCard[]> {
   return validItems;
 }
 
+export async function refreshAdmitCardsCache(log?: { info: (msg: string) => void; error: (obj: object, msg: string) => void }): Promise<void> {
+  try {
+    log?.info("Background scrape: fetching admit cards...");
+    const items = await scrapeAdmitCards();
+    cache = { items, lastUpdated: new Date().toISOString() };
+    cacheTime = Date.now();
+    log?.info(`Background scrape: done — ${items.length} admit cards cached`);
+  } catch (err) {
+    log?.error({ err }, "Background scrape failed for admit cards");
+  }
+}
+
 router.get("/admit-cards", async (req, res) => {
   try {
     const now = Date.now();
