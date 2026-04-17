@@ -214,5 +214,24 @@ router.get("/admit-cards", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch admit cards" });
   }
 });
+router.get("/cron/admitcard", async (req, res) => {
+  try {
+    console.log("Cron admitcard triggered");
 
+    const items = await scrapeAdmitCards();
+
+    // update cache also
+    cache = { items, lastUpdated: new Date().toISOString() };
+    cacheTime = Date.now();
+
+    res.json({
+      success: true,
+      count: items.length,
+      message: "Admit cards updated"
+    });
+  } catch (error) {
+    console.error("Cron error:", error);
+    res.status(500).json({ success: false });
+  }
+});
 export default router;
